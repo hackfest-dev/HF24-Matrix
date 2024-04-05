@@ -1,85 +1,68 @@
+"use client"
 import Link from "next/link";
 import { Button } from "../components/button";
+import React, { useState } from 'react'; 
 
 export default function Component() {
+  const [isMobileMenuVisible, setIsMobileMenuVisible] = React.useState(false);
+  const toggleMobileMenu = () => {
+    setIsMobileMenuVisible(!isMobileMenuVisible);
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <header className="flex items-center justify-between px-8 py-4 bg-white text-black">
         <div className="flex items-center">
-          <Link href="#">
+          <Link href="/">
             <MountainIcon className="h-8 w-8" />
           </Link>
-          <span className="text-lg font-medium ml-2">SALVUS</span>{" "}
-          {/* Name alongside the mountain photo */}
+          <span className="text-lg font-medium ml-2">SAFE-ZONE</span>{" "}
         </div>
         <nav className="md:flex gap-8 hidden">
           <Link
             className="text-lg font-medium hover:underline underline-offset-4"
-            href="#"
+            href="/"
           >
             Home
           </Link>
           <Link
             className="text-lg font-medium hover:underline underline-offset-4"
-            href="#features"
+            href="/pages/subscribe"
           >
-            Features
+            Subscribe
           </Link>
           <Link
             className="text-lg font-medium hover:underline underline-offset-4"
-            href="#about" // Link to the About section
+            href="/pages/posts" // Link to the About section
           >
-            About
+            Posts
           </Link>
           <Link
             className="text-lg font-medium hover:underline underline-offset-4"
-            href="#contact"
+            href="/pages/volunteer"
           >
-            Contact Us
+            Volunteer
           </Link>
         </nav>
         <Button
-          className="hidden border-black border-2 md:inline-flex"
+          className="text-lg font-medium hidden border-black border-2 md:inline-flex p-1 rounded-xl"
           variant="outline"
         >
-          Login
+          Signout
         </Button>
         <div className="md:hidden">
-          <Button className="inline-flex" variant="outline">
+          <Button onClick={toggleMobileMenu} className="inline-flex p-1 rounded-xl  border-black border-2" variant="outline">
             Menu
           </Button>
-          <div className="absolute top-16 right-0 w-48 py-2 bg-white rounded-lg shadow-md flex flex-col gap-2">
-            <Link
-              className="px-4 py-2 text-lg font-medium hover:bg-gray-200"
-              href="#"
-            >
-              Home
-            </Link>
-            <Link
-              className="px-4 py-2 text-lg font-medium hover:bg-gray-200"
-              href="#features"
-            >
-              Features
-            </Link>
-            <Link
-              className="px-4 py-2 text-lg font-medium hover:bg-gray-200"
-              href="#about" // Link to the About section
-            >
-              About
-            </Link>
-            <Link
-              className="px-4 py-2 text-lg font-medium hover:bg-gray-200"
-              href="#contact"
-            >
-              Contact Us
-            </Link>
-            <Link
-              className="px-4 py-2 text-lg font-medium hover:bg-gray-200"
-              href="#contact"
-            >
-              Login
-            </Link>
-          </div>
+          {isMobileMenuVisible && (
+            <div className="absolute top-16 right-0 w-48 py-2 bg-white rounded-lg shadow-md flex flex-col gap-2">
+              <Link className="p-2" href="/">Home</Link>
+              <Link className="p-2" href="/pages/subscribe">Subscribe</Link>
+              <Link className="p-2" href="/pages/posts">Posts</Link>
+              <Link className="p-2" href="/pages/volunteer">Volunteer</Link>
+              <Link className="p-2" href="/pages/contact">Signout</Link>
+            </div>
+          )}
         </div>
       </header>
       <main className=" bg-white text-black flex flex-col items-center justify-center flex-grow">
@@ -89,7 +72,7 @@ export default function Component() {
         >
           <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
             <h1 className="text-5xl md:text-6xl font-bold">
-              Welcome to SAL<span className="text-green-500">VAS</span> Inc .
+              Welcome to SAFE<span className="text-green-500">ZONE</span> Inc .
             </h1>
             <p className="text-gray-600 dark:text-gray-400 text-lg">
               Lorem ipsum dolor sit amet consectetur adipisicing..
@@ -98,7 +81,7 @@ export default function Component() {
           <div className="w-full max-w-md">
             <img
               alt="Chatbot"
-              src="https://mymodernmet.com/wp/wp-content/uploads/2023/01/ai-chatbots.jpg"
+              src="https://img.freepik.com/free-vector/patent-law-concept-illustrated_23-2148739016.jpg?size=626&ext=jpg&ga=GA1.1.1359882910.1712348428&semt=aishttps://mymodernmet.com/wp/wp-content/uploads/2023/01/ai-chatbots.jpg"
               className="w-full h-auto object-cover object-center rounded-lg shadow-md"
               style={{
                 aspectRatio: "500/500",
@@ -114,7 +97,7 @@ export default function Component() {
         >
           <h2 className="text-4xl md:text-5xl font-bold">Features</h2>
           <p className="text-gray-600 dark:text-gray-400 text-lg">
-            Discover the amazing features of our AI chatbot.
+            Discover the amazing features of our app.
           </p>
         </section>
         <section
