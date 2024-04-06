@@ -1,46 +1,72 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { DrawerActions } from '@react-navigation/native';
-import Sidebar from "./sidebar.js";
+import React, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Image,Button, Platform } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Card } from 'react-native-paper';
+import * as Location from "expo-location";
+import Map from "./Map.js";
+import { PROVIDER_GOOGLE } from "react-native-maps";
 
-const Home = ({ navigation }) => {
-  const handleOngoingUpdates = () => {
-    // Implement your logic for handling "Ongoing Updates" action
-    alert("Ongoing Updates");
+
+
+export default function Home(){
+  const [showSidebar, setShowSidebar] = useState(false); 
+  const navigation = useNavigation();
+  const user = {
+    name: "John Doe",
+    email: "john@example.com",
+    phone: "+1 123-456-7890",
   };
-  const openSidebar = () => {
-    navigation.dispatch(DrawerActions.openDrawer());
+  const handleEmergency = () => {
+
+    alert("Emergency button pressed!");
+  };
+
+  const toggleSidebar = () => {
+    setShowSidebar(!showSidebar);
   };
   
-  const handleEmergencyHelp = () => {
-    // Implement your logic for handling "Emergency Help" action
-    alert("Emergency Help");
-  };
-
-  const openDrawer = () => {
-    navigation.dispatch(DrawerActions.openDrawer());
-  };
-
-  return (
+  return(
     <View style={styles.container}>
-      <View style={styles.container}>
-      <LinearGradient
-        colors={["#FFA07A", "#FF6347"]}
-        style={styles.gradient}
-      />
-      <TouchableOpacity style={styles.sidebarButton} onPress={openSidebar}>
+      <View style={styles.navBar}>
+        <Image
+          source={require("../assets/icon.png")}
+          style={styles.logo}
+        />
+        <Text style={styles.appName}>SafeZone</Text>
+      </View>
+
+      {showSidebar && (
+        <View style={styles.sidebar}>
+          <Text style={styles.userName}>{user.name}</Text>
+          <Text style={styles.userEmail}>{user.email}</Text>
+          <Text style={styles.userPhone}>{user.phone}</Text>
+          {/* Contact options */}
+          <TouchableOpacity style={styles.contactButton}>
+            <Text style={styles.contactButtonText}>Contact via WhatsApp</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.contactButton}>
+            <Text style={styles.contactButtonText}>Contact via Email</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      <TouchableOpacity style={styles.sidebarButton} onPress={toggleSidebar}>
         <Text style={styles.sidebarButtonText}>☰</Text>
       </TouchableOpacity>
-    </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleEmergencyHelp}>
-          <Text style={styles.buttonText}>Emergency Help!!</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleOngoingUpdates}>
-          <Text style={styles.buttonText}>Ongoing Updates</Text>
-        </TouchableOpacity>
-      </View>
+      <Card>
+    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+  </Card>
+        <Image
+        source={require("../assets/favicon.png")}
+        style={styles.disasterImage}
+      />
+      <Card>
+    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+  </Card>
+        <Button title="Location" style={styles.MapButton} onPress={() => navigation.navigate("Map")}></Button>
+     
+      <TouchableOpacity style={styles.Emergencybutton} onPress={handleEmergency}>
+        <Text style={styles.EmergencybuttonText}>Emergency!!!</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -48,68 +74,97 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
   },
-  gradient: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    height: "100%",
-  },
-  sidebarButton: {
-    position: "absolute",
-    top: 20,
-    left: 20,
-    zIndex: 1,
-  },
-  sidebarButtonText: {
-    color: "#fff",
-    fontSize: 24,
-  },
-  buttonContainer: {
-    flex: 1,
+  navBar: {
+    flexDirection: "row",
+    alignItems: "left",
     justifyContent: "center",
-    alignItems: "center",
-  },
-  button: {
-    backgroundColor: "#7FFF00",
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
     marginBottom: 20,
+    marginTop: 50,
+    padding: 5,
   },
-  buttonText: {
+  logo: {
+    width: 50,
+    height: 50,
+  },
+  appName: {
+    fontSize: 18,
+    fontWeight: "bold",
+    paddingTop:10,
+    paddingLeft: 5,
+  },
+  Emergencybutton: {
+    backgroundColor: "#FF6347",
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    marginTop: 10,
+    marginBottom: 20,
+    paddingTop: 25,
+    paddingBottom: 25,
+  },
+  EmergencybuttonText: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 18,
     textAlign: "center",
   },
-  container: {
-    flex: 1,
-  },
-  gradient: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
+  sidebar: {
+    position: "right",
+    width: "100%",
     height: "100%",
+    top: 20,
+    left: 20,
+    backgroundColor: "#f0f0f0",
+    padding: 10,
+    borderRadius: 8,
+    zIndex: 0,
+  },
+  userName: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  userEmail: {
+    fontSize: 14,
+    color: "#555",
+    marginBottom: 5,
+  },
+  userPhone: {
+    fontSize: 14,
+    color: "#555",
+  },
+  contactButton: {
+    marginTop: 10,
+    backgroundColor: "#007AFF",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+  },
+  contactButtonText: {
+    color: "#fff",
+    textAlign: "center",
+  },
+  disasterImage: {
+    width: "100%",
+    height: 200,
+    marginBottom: 20,
+    resizeMode: "cover",
   },
   sidebarButton: {
     position: "absolute",
     top: 20,
-    left: 20,
-    zIndex: 1,
+    right: 20,
+    zIndex: 5,
+  
   },
   sidebarButtonText: {
-    color: "#fff",
+    color: "#000000",
     fontSize: 24,
   },
+  mapIcon: {
+    width: 50,
+    height: 50,
+  },
 });
-export default Home;
+

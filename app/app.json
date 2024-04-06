@@ -1,19 +1,23 @@
 {
   "expo": {
-    "name": "Help",
+    "name": "Safezone",
     "slug": "Help",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "plugins": [[
+      "expo-location",
+      {
+        "locationAlwaysAndWhenInUsePermission": "Allow Safezone To use your location."
+      }
+    ]],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -21,7 +25,13 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "config":{
+               "googleMaps":{
+                "apiKey": "AIzaSyD69p6gzMDgCygQzpk8LaBGyKM-_6znbDw"
+               }
+      },
+      "jsEngine": "hermes"
     },
     "web": {
       "favicon": "./assets/favicon.png"
