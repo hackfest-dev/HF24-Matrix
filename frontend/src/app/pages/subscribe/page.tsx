@@ -1,31 +1,45 @@
-"use client"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import axios from 'axios';
-import * as react from 'react';
+"use client";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import * as React from "react";
 
 export default function Component() {
-    const handleSubscribe = async () => {
+    const router = useRouter(); 
+    const [name, setName] = React.useState('');
+    const [phonenumber, setPhonenumber] = React.useState('');
+    const [state, setState] = React.useState('');
+    const [district, setDistrict] = React.useState('');
+    const [isLoading, setIsLoading] = React.useState(false);
+
+    const handleSignUp = async () => {
+        setIsLoading(true);
         try {
-            const response = await axios.post("http://localhost:8000/api/v1/subscriber/subscribe", { // Assuming the endpoint for subscription is /api/v1/subscribe
-                name,
-                phone,
-                state,
-                district
+            const response = await fetch("http://localhost:8000/api/v1/subscriber/subscribe", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name, phonenumber, state, district }), 
             });
 
-            if (response.status === 200) {
-                alert("Subscription successful!"); 
+            if (response.ok) {
+                router.push("/");
             } else {
-                console.error("Subscription failed");
+                console.error("Sign up failed");
             }
         } catch (error) {
-            console.error("Subscription failed:", error);
+            console.error("Sign up failed:", error);
+        } finally {
+            setIsLoading(false);
+            setName("");
+            setPhonenumber("");
+            setState("");
+            setDistrict("");
         }
     };
 
-    
     return (
         <div className="w-full lg:p-40 pt-36  flex justify-center items-center">
             <div className="w-1/2 space-y-8">
@@ -42,8 +56,8 @@ export default function Component() {
                             <Input id="name" placeholder="Enter your name" value={name} onChange={(e) => setName(e.target.value)} />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="phone">Phone Number</Label>
-                            <Input id="phone" placeholder="Enter your phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                            <Label htmlFor="phonenumber">Phone Number</Label>
+                            <Input id="phonenumber" placeholder="Enter your phone" type="tel" value={phonenumber} onChange={(e) => setPhonenumber(e.target.value)} />
                         </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
@@ -56,9 +70,9 @@ export default function Component() {
                             <Input id="district" placeholder="Enter your district" value={district} onChange={(e) => setDistrict(e.target.value)} />
                         </div>
                     </div>
-                    <Button onClick={handleSubscribe}>Subscribe</Button>
+                    <Button onClick={handleSignUp} disabled={isLoading}>Subscribe</Button>
                 </div>
             </div>
         </div>
-    )
+    );
 }

@@ -2,12 +2,8 @@
 import Link from "next/link";
 import * as React from 'react'
 import { Button } from "../components/button";
-import lottie from "lottie-react";
-import animationData from "../../../public/Animation - 1712398450369.json"
 
-interface LottieProps {
-  animationData: any;
-}
+
 
 export default function Component() {
   const [isMobileMenuVisible, setIsMobileMenuVisible] = React.useState(false);
@@ -27,35 +23,37 @@ export default function Component() {
         <nav className="md:flex gap-8 hidden">
           <Link
             className="text-lg font-medium hover:underline underline-offset-4"
-            href="/"
+            href="/pages/login"
           >
-            Home
+            Safe
           </Link>
           <Link
             className="text-lg font-medium hover:underline underline-offset-4"
-            href="/pages/subscribe"
+            href="/pages/login"
           >
             Subscribe
           </Link>
           <Link
             className="text-lg font-medium hover:underline underline-offset-4"
-            href="/pages/posts" // Link to the About section
+            href="/pages/login" // Link to the About section
           >
             Posts
           </Link>
           <Link
             className="text-lg font-medium hover:underline underline-offset-4"
-            href="/pages/volunteer"
+            href="/pages/login"
           >
             Volunteer
           </Link>
         </nav>
-        <Button
-          className="text-lg font-medium hidden border-black border-2 md:inline-flex p-1 rounded-xl"
-          variant="outline"
-        >
-          Signout
-        </Button>
+        <Link href="/pages/login">
+            <Button
+              className="text-lg font-medium hidden border-black border-2 md:inline-flex p-1 rounded-xl"
+              variant="outline"
+            >
+              Login
+            </Button>
+        </Link>
         <div className="md:hidden">
           <Button
             onClick={toggleMobileMenu}
@@ -66,20 +64,20 @@ export default function Component() {
           </Button>
           {isMobileMenuVisible && (
             <div className="absolute top-16 right-0 w-48 py-2 bg-white rounded-lg shadow-md flex flex-col gap-2">
-              <Link className="p-2" href="/">
-                Home
+              <Link className="p-2" href="/pages/login">
+                Safe
               </Link>
-              <Link className="p-2" href="/pages/subscribe">
+              <Link className="p-2" href="/pages/login">
                 Subscribe
               </Link>
-              <Link className="p-2" href="/pages/posts">
+              <Link className="p-2" href="/pages/login">
                 Posts
               </Link>
-              <Link className="p-2" href="/pages/volunteer">
+              <Link className="p-2" href="/pages/login">
                 Volunteer
               </Link>
-              <Link className="p-2" href="/pages/contact">
-                Signout
+              <Link className="p-2" href="/pages/login">
+                login
               </Link>
             </div>
           )}
@@ -147,7 +145,7 @@ export default function Component() {
   );
 }
 
-interface MountainIconProps extends React.SVGProps<SVGSVGElement> {}
+interface MountainIconProps extends React.SVGProps<SVGSVGElement> { }
 
 function MountainIcon(props: MountainIconProps) {
   return (
