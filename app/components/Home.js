@@ -1,20 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image,Button, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import {MaterialCommunityIcons} from "@expo/vector-icons"
 import { Card } from 'react-native-paper';
 import * as Location from "expo-location";
 import Map from "./Map.js";
 import { PROVIDER_GOOGLE } from "react-native-maps";
 
-
-
 export default function Home(){
   const [showSidebar, setShowSidebar] = useState(false); 
   const navigation = useNavigation();
+    const [currentTime, setCurrentTime] = useState(new Date());
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        setCurrentTime(new Date());
+      }, 1000);
+  
+      return () => {
+        clearInterval(intervalId);
+      };
+    }, []);
+    const formattedTime = currentTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    const formattedDate = currentTime.toLocaleDateString([], { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+    
   const user = {
     name: "John Doe",
-    email: "john@example.com",
-    phone: "+1 123-456-7890",
+    email: "admin@example.com",
+    phone: "+91 8088088891",
   };
   const handleEmergency = () => {
 
@@ -24,23 +36,35 @@ export default function Home(){
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
-  
+  const volunteers = [
+    { name: "John", phone: "+91 9345678901" },
+    { name: "Smith", phone: "+91 8765432105" },
+    { name: "Jane", phone: "+91 8785212100" },
+    { name: "Jack", phone: "+91 9635874122" },
+    { name: "Joel", phone: "+91 6541239877" },
+  ];
+
+  const handleCallVolunteer = (phone) => {
+    Communications.phonecall(phone, true); 
+  };
   return(
     <View style={styles.container}>
       <View style={styles.navBar}>
         <Image
-          source={require("../assets/icon.png")}
+          source={require("../assets/logo.jpeg")}
           style={styles.logo}
         />
         <Text style={styles.appName}>SafeZone</Text>
       </View>
-
+      <View style={styles.dateTimeContainer}>
+        <Text style={styles.timeText}>{formattedTime}</Text>
+        <Text style={styles.dateText}>{formattedDate}</Text>
+      </View>
       {showSidebar && (
         <View style={styles.sidebar}>
           <Text style={styles.userName}>{user.name}</Text>
           <Text style={styles.userEmail}>{user.email}</Text>
           <Text style={styles.userPhone}>{user.phone}</Text>
-          {/* Contact options */}
           <TouchableOpacity style={styles.contactButton}>
             <Text style={styles.contactButtonText}>Contact via WhatsApp</Text>
           </TouchableOpacity>
@@ -52,17 +76,17 @@ export default function Home(){
       <TouchableOpacity style={styles.sidebarButton} onPress={toggleSidebar}>
         <Text style={styles.sidebarButtonText}>☰</Text>
       </TouchableOpacity>
-      <Card>
-    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-  </Card>
-        <Image
-        source={require("../assets/favicon.png")}
-        style={styles.disasterImage}
-      />
-      <Card>
-    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-  </Card>
-        <Button title="Location" style={styles.MapButton} onPress={() => navigation.navigate("Map")}></Button>
+      <Button title="Location" style={styles.MapButton} onPress={() => navigation.navigate("Map")}></Button>
+      {volunteers.map((volunteer, index) => (
+        <TouchableOpacity
+          key={index}
+          onPress={() => handleCallVolunteer(volunteer.phone)}
+          style={{ marginVertical: 10, padding: 10, backgroundColor: "#f0f0f0", position:"relative", paddingLeft:15 }}
+        >
+          <Text>{volunteer.name}</Text>
+          <Text>Call: {volunteer.phone}<MaterialCommunityIcons name="phone-outline" size={26} color="black" style={{  alignItems:"center"  }} /></Text>
+        </TouchableOpacity>
+      ))}
      
       <TouchableOpacity style={styles.Emergencybutton} onPress={handleEmergency}>
         <Text style={styles.EmergencybuttonText}>Emergency!!!</Text>
@@ -75,6 +99,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+  },
+  dateTimeContainer: {
+    position: "absolute",
+    paddingRight: 290,
+    paddingTop: 15,
+    top: 10,
+    right: 10,
+    alignItems: "flex-start",
+  },
+  timeText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#ff0000",
+  },
+  dateText: {
+    fontSize: 16,
+    color: "#ff0000",
   },
   navBar: {
     flexDirection: "row",
@@ -96,9 +137,7 @@ const styles = StyleSheet.create({
   },
   Emergencybutton: {
     backgroundColor: "#FF6347",
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
+    borderRadius: 60,
     marginTop: 10,
     marginBottom: 20,
     paddingTop: 25,
@@ -167,4 +206,3 @@ const styles = StyleSheet.create({
     height: 50,
   },
 });
-

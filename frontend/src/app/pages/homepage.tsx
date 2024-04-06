@@ -25,7 +25,7 @@ export default function Component() {
             className="text-lg font-medium hover:underline underline-offset-4"
             href="/pages/login"
           >
-            Home
+            Safe
           </Link>
           <Link
             className="text-lg font-medium hover:underline underline-offset-4"
@@ -65,7 +65,7 @@ export default function Component() {
           {isMobileMenuVisible && (
             <div className="absolute top-16 right-0 w-48 py-2 bg-white rounded-lg shadow-md flex flex-col gap-2">
               <Link className="p-2" href="/pages/login">
-                Home
+                Safe
               </Link>
               <Link className="p-2" href="/pages/login">
                 Subscribe

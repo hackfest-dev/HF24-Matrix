@@ -25,9 +25,9 @@ export default function Component() {
                 <nav className="md:flex gap-8 hidden">
                     <Link
                         className="text-lg font-medium hover:underline underline-offset-4"
-                        href="/"
+                        href="/pages/safe"
                     >
-                        Home
+                        safe
                     </Link>
                     <Link
                         className="text-lg font-medium hover:underline underline-offset-4"
@@ -66,8 +66,8 @@ export default function Component() {
                     </Button>
                     {isMobileMenuVisible && (
                         <div className="absolute top-16 right-0 w-48 py-2 bg-white rounded-lg shadow-md flex flex-col gap-2">
-                            <Link className="p-2" href="/">
-                                Home
+                            <Link className="p-2" href="/pages/safe">
+                                safe
                             </Link>
                             <Link className="p-2" href="/pages/subscribe">
                                 Subscribe
