@@ -7,7 +7,7 @@
   import { useRouter } from "next/navigation";
   import { useState } from "react";
   import axios from 'axios';
-x`x`
+  
   export default function Register() {
     const router = useRouter();
     const [username, setUsername] = React.useState("");
