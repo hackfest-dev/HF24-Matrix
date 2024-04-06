@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import * as React from "react";
-import axios from 'axios';
 
 export default function Component() {
     const router = useRouter(); 
