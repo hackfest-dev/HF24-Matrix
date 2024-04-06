@@ -1,97 +1,99 @@
-"useclient"
-import React, { useState } from 'react';
+"use client"
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-const BlogPostForm: React.FunctionComponent = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [state, setState] = useState('');
-  const [district, setDistrict] = useState('');
+const BlogPostForm = () => {
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+    state: '',
+    district: ''
+  });
+  const [image, setImage] = useState<File | null>(null);
 
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
   };
 
-  const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(event.target.value);
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setImage(e.target.files[0]);
+    }
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    setImageFile(file);
-  };
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append('text', formData.content);
+    data.append('state', formData.state);
+    data.append('district', formData.district);
+    if (image) {
+      data.append('imageUrl', image);
+    }
 
-  const handleStateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState(event.target.value);
-  };
-
-  const handleDistrictChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDistrict(event.target.value);
-  };
-
-  const handleSubmit = async () => {
     try {
-      const formData = new FormData();
-      formData.append('title', title);
-      formData.append('content', content);
-      formData.append('state', state);
-      formData.append('district', district);
-      formData.append('imageUrl', imageFile);
-
-      const response = await fetch('/api/posts', {
+      const response = await fetch('http://localhost:8000/api/v1/posts/postnews', {
         method: 'POST',
-        body: formData,
+        body: data,
       });
 
-      if (response.status === 201) {
-        // Redirect to success page or blog posts list
-        console.log('Post submitted successfully!');
-      } else {
-        console.error('Error submitting post:', response.statusText);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
+      if (response.ok) {
+        router.push("/pages/posts");
+        console.log(' ok done');
+      }
+
+      const result = await response.json();
+      console.log(result);
     } catch (error) {
-      console.error('Error submitting post:', error);
+      console.error('Error:', error);
     }
   };
 
   return (
     <Card className="w-full max-w-lg mx-auto">
-      <CardHeader>
-        <CardTitle>Submit your blog post</CardTitle>
-        <CardDescription>Fill out the form below to submit your blog post.</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="title">Title</Label>
-          <Input id="title" placeholder="Enter the title" value={title} onChange={handleTitleChange} required />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="content">Content</Label>
-          <Textarea className="min-h-[100px]" id="content" placeholder="Enter the content" value={content} onChange={handleContentChange} required />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="image">Image</Label>
-          <Input accept="image/*" id="image" type="file" onChange={handleImageChange} />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="state">State</Label>
-          <Input id="state" placeholder="Enter the State" value={state} onChange={handleStateChange} required />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="district">District</Label>
-          <Input id="district" placeholder="Enter the District" value={district} onChange={handleDistrictChange} required />
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button size="sm" onClick={handleSubmit}>Submit</Button>
-      </CardFooter>
+      <form onSubmit={handleSubmit}>
+        <CardHeader>
+          <CardTitle>Submit your blog post</CardTitle>
+          <CardDescription>Fill out the form below to submit your blog post.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="title">Title</Label>
+            <Input id="title" placeholder="Enter the title" value={formData.title} onChange={handleInputChange as any} required />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="content">Content</Label>
+            <Textarea id="content" className="min-h-[100px]" placeholder="Enter the content" value={formData.content} onChange={handleInputChange as any} required />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="image">Image</Label>
+            <Input id="image" type="file" accept="image/*" onChange={handleImageChange} />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="state">State</Label>
+            <Input id="state" placeholder="Enter the State" value={formData.state} onChange={handleInputChange as any} required />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="district">District</Label>
+            <Input id="district" placeholder="Enter the District" value={formData.district} onChange={handleInputChange as any} required />
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button type="submit" size="sm">Submit</Button>
+        </CardFooter>
+      </form>
     </Card>
   );
-}
+};
 
 export default BlogPostForm;

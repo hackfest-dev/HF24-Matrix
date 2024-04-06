@@ -25,7 +25,7 @@ export default function Component() {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("token", data.token);
-        router.push("/");
+        router.push("/pages/home");
       } else {
         console.error("Login failed");
       }
@@ -89,7 +89,7 @@ export default function Component() {
               <div className="w-full flex items-center justify-center">
                 <p className="text-gray-500 dark:text-gray-400">
                   Don't have an account yet?
-                  <Link className="underline" href="/Pages/register">
+                  <Link className="underline" href="/pages/register">
                     Sign up
                   </Link>
                 </p>

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
+import Link from 'next/link';
 import { Button } from "@/components/ui/button"
 
 interface Post {
@@ -39,11 +40,13 @@ const Component: React.FC = () => {
   return (
     <div className="bg-white text-black px-4 py-6 md:px-6 lg:py-12">
       <div className="grid gap-6 md:gap-8">
-      <div className=" space-y-2">
+        <div className="space-y-2">
           <h2 className="text-lg font-bold">Create a new post</h2>
-          <Button className="bg-black text-white text-sm" variant="outline">
-          New Post
-          </Button>
+          <Link href="/pages/posting-post">
+              <Button className="bg-black text-white text-sm" variant="outline">
+                New Post
+              </Button>
+          </Link>
         </div>
         {posts.map((post) => (
           <div className="space-y-9" key={post._id}>
