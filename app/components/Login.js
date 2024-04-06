@@ -3,22 +3,24 @@ import { Text, View, TouchableOpacity, TextInput, Alert } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
 
-const Login = ({ navigation }) => { 
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://192.168.137.155:3050/login", {
+      const response = await axios.post("http://192.168.57.150:8000/api/v1/users/login", {
         email,
         password,
         role,
       });
       Alert.alert("Login Successful", response.data);
+       navigation.navigate("Home");
     } catch (error) {
       console.error("Error:", error.message);
-      Alert.alert("Login Failed", "An unexpected error occurred. Please try again later.");
+      const errorMessage = error.response?.data?.message || "An unexpected error occurred. Please try again later.";
+      Alert.alert("Login Failed", errorMessage);
     }
   };
 
