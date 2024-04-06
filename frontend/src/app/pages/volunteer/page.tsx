@@ -22,7 +22,7 @@ export default function Component() {
                         </div>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="phone">Phone</Label>
+                        <Label htmlFor="phone">Phone number</Label>
                         <Input id="phone" placeholder="Enter your phone" type="tel" />
                     </div>
                     <div className="space-y-2">
@@ -30,8 +30,12 @@ export default function Component() {
                         <Input id="password" placeholder="Enter your password" type="password" />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="location">Location</Label>
-                        <Input id="location" placeholder="Enter your location" />
+                        <Label htmlFor="states">State</Label>
+                        <Input id="states" placeholder="Enter your state" />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="district">District</Label>
+                        <Input id="district" placeholder="Enter your location" />
                     </div>
                     <Button>Sign up</Button>
                 </div>

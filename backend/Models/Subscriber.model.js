@@ -1,16 +1,10 @@
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
-const VolunteerSchema = new mongoose.Schema(
+const SubscriberSchema = new mongoose.Schema(
   {
-    firstname: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true,
-      index: true,
-    },
-    lastname: {
+    name: {
       type: String,
       required: true,
       unique: true,
@@ -23,10 +17,7 @@ const VolunteerSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    password: {
-      type: String,
-      required: [true, "Password is required"],
-    },
+    
     state: {
         type: String,
         required: true,
@@ -42,4 +33,4 @@ const VolunteerSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const  Volunteer = mongoose.model("volunteer", VolunteerSchema);
+export const  Subscriber = mongoose.model("Subscriber", SubscriberSchema);

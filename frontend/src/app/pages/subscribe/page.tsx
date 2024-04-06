@@ -19,7 +19,7 @@ export default function Component() {
                             <Input id="name" placeholder="Enter your name" />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="phone">Phone</Label>
+                            <Label htmlFor="phone">Phone Number</Label>
                             <Input id="phone" placeholder="Enter your phone" type="tel" />
                         </div>
                     </div>
