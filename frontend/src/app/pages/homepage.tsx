@@ -1,7 +1,13 @@
-"use client"
+"use client";
 import Link from "next/link";
+import * as React from 'react'
 import { Button } from "../components/button";
-import React, { useState } from 'react'; 
+import lottie from "lottie-react";
+import animationData from "../../../public/Animation - 1712398450369.json"
+
+interface LottieProps {
+  animationData: any;
+}
 
 export default function Component() {
   const [isMobileMenuVisible, setIsMobileMenuVisible] = React.useState(false);
@@ -51,16 +57,30 @@ export default function Component() {
           Signout
         </Button>
         <div className="md:hidden">
-          <Button onClick={toggleMobileMenu} className="inline-flex p-1 rounded-xl  border-black border-2" variant="outline">
+          <Button
+            onClick={toggleMobileMenu}
+            className="inline-flex p-1 rounded-xl  border-black border-2"
+            variant="outline"
+          >
             Menu
           </Button>
           {isMobileMenuVisible && (
             <div className="absolute top-16 right-0 w-48 py-2 bg-white rounded-lg shadow-md flex flex-col gap-2">
-              <Link className="p-2" href="/">Home</Link>
-              <Link className="p-2" href="/pages/subscribe">Subscribe</Link>
-              <Link className="p-2" href="/pages/posts">Posts</Link>
-              <Link className="p-2" href="/pages/volunteer">Volunteer</Link>
-              <Link className="p-2" href="/pages/contact">Signout</Link>
+              <Link className="p-2" href="/">
+                Home
+              </Link>
+              <Link className="p-2" href="/pages/subscribe">
+                Subscribe
+              </Link>
+              <Link className="p-2" href="/pages/posts">
+                Posts
+              </Link>
+              <Link className="p-2" href="/pages/volunteer">
+                Volunteer
+              </Link>
+              <Link className="p-2" href="/pages/contact">
+                Signout
+              </Link>
             </div>
           )}
         </div>
@@ -88,6 +108,9 @@ export default function Component() {
                 objectFit: "cover",
               }}
             />
+            {/* <div className="w-full h-auto object-cover object-center rounded-lg shadow-md">
+            <lottie {...props as LottieProps} animationData ={animationData}/>
+            </div> */}
           </div>
         </div>
 
