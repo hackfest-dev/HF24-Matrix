@@ -1,0 +1,125 @@
+{
+    "bunkers": [
+      {
+        "Bunker Name": "Bunker 1",
+        "Bunker Place": "Mangalore",
+        "Latitude": "12.9141",
+        "Longitude": "74.8560"
+      },
+      {
+        "Bunker Name": "Bunker 2",
+        "Bunker Place": "Surathkal, Mangalore",
+        "Latitude": "12.9920",
+        "Longitude": "74.8039"
+      },
+      {
+        "Bunker Name": "Bunker 3",
+        "Bunker Place": "Bantwal, Mangalore",
+        "Latitude": "12.8617",
+        "Longitude": "75.0057"
+      },
+      {
+        "Bunker Name": "Bunker 4",
+        "Bunker Place": "Moodabidri, Mangalore",
+        "Latitude": "13.0928",
+        "Longitude": "74.9861"
+      },
+      {
+        "Bunker Name": "Bunker 5",
+        "Bunker Place": "Mulki, Mangalore",
+        "Latitude": "13.0987",
+        "Longitude": "74.8031"
+      },
+      {
+        "Bunker Name": "Bunker 6",
+        "Bunker Place": "Ullal, Mangalore",
+        "Latitude": "12.8162",
+        "Longitude": "74.8559"
+      },
+      {
+        "Bunker Name": "Bunker 7",
+        "Bunker Place": "Sullia, Mangalore",
+        "Latitude": "12.6573",
+        "Longitude": "75.9344"
+      },
+      {
+        "Bunker Name": "Bunker 8",
+        "Bunker Place": "Puttur, Mangalore",
+        "Latitude": "12.7663",
+        "Longitude": "75.2048"
+      },
+      {
+        "Bunker Name": "Bunker 9",
+        "Bunker Place": "Belthangady, Mangalore",
+        "Latitude": "13.0026",
+        "Longitude": "75.2949"
+      },
+      {
+        "Bunker Name": "Bunker 10",
+        "Bunker Place": "Karkala, Mangalore",
+        "Latitude": "13.2031",
+        "Longitude": "74.9888"
+      },
+      {
+        "Bunker Name": "Bunker 11",
+        "Bunker Place": "Kateel, Mangalore",
+        "Latitude": "13.0976",
+        "Longitude": "74.9567"
+      },
+      {
+        "Bunker Name": "Bunker 12",
+        "Bunker Place": "Padubidri, Mangalore",
+        "Latitude": "13.2089",
+        "Longitude": "74.7150"
+      },
+      {
+        "Bunker Name": "Bunker 13",
+        "Bunker Place": "Bajpe, Mangalore",
+        "Latitude": "12.9629",
+        "Longitude": "74.8784"
+      },
+      {
+        "Bunker Name": "Bunker 14",
+        "Bunker Place": "Haleyangady, Mangalore",
+        "Latitude": "13.0053",
+        "Longitude": "75.2133"
+      },
+      {
+        "Bunker Name": "Bunker 15",
+        "Bunker Place": "Belvai, Mangalore",
+        "Latitude": "13.0498",
+        "Longitude": "74.8813"
+      },
+      {
+        "Bunker Name": "Bunker 16",
+        "Bunker Place": "Kinnigoli, Mangalore",
+        "Latitude": "13.0176",
+        "Longitude": "74.9413"
+      },
+      {
+        "Bunker Name": "Bunker 17",
+        "Bunker Place": "Malpe, Mangalore",
+        "Latitude": "13.3525",
+        "Longitude": "74.7076"
+      },
+      {
+        "Bunker Name": "Bunker 18",
+        "Bunker Place": "Kaikamba, Mangalore",
+        "Latitude": "12.8740",
+        "Longitude": "74.9323"
+      },
+      {
+        "Bunker Name": "Bunker 19",
+        "Bunker Place": "Kudupu, Mangalore",
+        "Latitude": "12.8979",
+        "Longitude": "74.8626"
+      },
+      {
+        "Bunker Name": "Bunker 20",
+        "Bunker Place": "Mangalpady, Mangalore",
+        "Latitude": "12.7797",
+        "Longitude": "74.9768"
+      }
+    ]
+  }
+  
