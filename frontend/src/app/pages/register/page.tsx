@@ -48,7 +48,7 @@
             <Link href="#">
               <div className="flex items-center space-x-2 cursor-pointer text-white">
                 <MountainIcon className="w-8 h-8" />
-                <span className="text-2xl font-bold text-white">Auto-Fis</span>
+                <span className="text-2xl font-bold text-white">Safe-Zone</span>
               </div>
             </Link>
           </div>

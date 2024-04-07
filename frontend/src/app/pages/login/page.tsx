@@ -83,7 +83,7 @@ export default function Component() {
                 className="w-full bg-white text-black"
                 disabled={isLoading}
               >
-                {isLoading ? "Signing Up..." : "Sign Up"}
+                {isLoading ? "Signing in..." : "Sign in"}
               </Button>
               
               <div className="w-full flex items-center justify-center">

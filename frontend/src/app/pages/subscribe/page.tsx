@@ -25,7 +25,7 @@ export default function Component() {
             });
 
             if (response.ok) {
-                router.push("/");
+                router.push("/pages/home");
             } else {
                 console.error("Sign up failed");
             }

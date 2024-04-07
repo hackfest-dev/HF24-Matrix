@@ -28,7 +28,7 @@ export default function Component() {
             });
 
             if (response.ok) {
-                router.push("/");
+                router.push("/pages/home");
                 console.log("Volunteer registered successfully");
             } else {
                 console.error("Registration failed");

@@ -56,7 +56,7 @@ const longitude = location ? location.coords.longitude : null;
 
   const handleEmergency = async () => {
     try{
-      const response = await axios.post("http:192.168.137.1:3050/needHelp", {
+      const response = await axios.post("http:192.168.57.150:3050/needHelp", {
         latitude: latitude,
         longitude: longitude
       });
