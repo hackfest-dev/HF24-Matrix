@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image,Button, Platform } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image,Button, Platform, Alert} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import {MaterialCommunityIcons} from "@expo/vector-icons"
 import { Card } from 'react-native-paper';
 import * as Location from "expo-location";
 import Map from "./Map.js";
 import { PROVIDER_GOOGLE } from "react-native-maps";
+import axios from "axios";
 
 export default function Home(){
   const [showSidebar, setShowSidebar] = useState(false); 
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
   const navigation = useNavigation();
-    const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState(new Date());
+
     useEffect(() => {
       const intervalId = setInterval(() => {
         setCurrentTime(new Date());
@@ -20,6 +24,24 @@ export default function Home(){
         clearInterval(intervalId);
       };
     }, []);
+
+    useEffect(() => {
+      (async () => {
+        let { status } = Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          setErrorMsg('Permission to access location was denied');
+          return;
+        }
+  
+        try {
+          let location = Location.getCurrentPositionAsync({});
+          setLocation(location);
+        } catch (error) {
+          setErrorMsg('Error fetching location data');
+        }
+      })();
+    }, []);  
+
     const formattedTime = currentTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
     const formattedDate = currentTime.toLocaleDateString([], { weekday: "long", year: "numeric", month: "long", day: "numeric" });
     
@@ -28,9 +50,22 @@ export default function Home(){
     email: "admin@example.com",
     phone: "+91 8088088891",
   };
-  const handleEmergency = () => {
 
-    alert("Emergency button pressed!");
+const latitude = location ? location.coords.latitude : null;
+const longitude = location ? location.coords.longitude : null;
+
+  const handleEmergency = async () => {
+    try{
+      const response = await axios.post("http:192.168.137.1:3050/needHelp", {
+        latitude: latitude,
+        longitude: longitude
+      });
+    alert("Emergency button pressed!");}
+    catch (error) {
+      console.error("Error:", error.message);
+      const errorMessage = error.response?.data?.message || "An unexpected error occurred. Please try again later.";
+      Alert.alert("Message sending Failed", errorMessage);
+    }
   };
 
   const toggleSidebar = () => {
@@ -44,9 +79,6 @@ export default function Home(){
     { name: "Joel", phone: "+91 6541239877" },
   ];
 
-  const handleCallVolunteer = (phone) => {
-    Communications.phonecall(phone, true); 
-  };
   return(
     <View style={styles.container}>
       <View style={styles.navBar}>
@@ -80,7 +112,7 @@ export default function Home(){
       {volunteers.map((volunteer, index) => (
         <TouchableOpacity
           key={index}
-          onPress={() => handleCallVolunteer(volunteer.phone)}
+          // onPress={() => handleCallVolunteer(volunteer.phone)}
           style={{ marginVertical: 10, padding: 10, backgroundColor: "#f0f0f0", position:"relative", paddingLeft:15 }}
         >
           <Text>{volunteer.name}</Text>

@@ -1,10 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
-	"encoding/json"
+
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/twilio/twilio-go"
@@ -13,8 +14,8 @@ import (
 
 
 type Coordinates struct{
-	Latitude string `json:"latitude"`
-	Longitude string `json:"longitude"`
+	Latitude float32 `json:"latitude"`
+	Longitude float32 `json:"longitude"`
 }
 
 func main() {
@@ -29,8 +30,10 @@ func sendSMStoVolunteer() gin.HandlerFunc {
 		var location Coordinates
 		if err := c.ShouldBindJSON(&location);err!=nil{
             c.String(http.StatusBadRequest, "Bad request")
+			fmt.Print(err)
             return
         }
+		fmt.Print(location)
 
 		err := godotenv.Load()
     	if err != nil {
@@ -43,7 +46,7 @@ func sendSMStoVolunteer() gin.HandlerFunc {
 			Username: accountSid,
 			Password: authToken,
 		})
-		message := fmt.Sprintf("DISASTER ALERT!! There's a user that might need your help!!! Here is the location of the user : https://www.google.com/maps/search/?api=1&query=%d,%d",location.Latitude, location.Longitude)
+		message := fmt.Sprintf("DISASTER ALERT!! There's a user that might need your help!!! Here is the location of the user : https://www.google.com/maps/search/?api=1&query=%f,%f",location.Latitude, location.Longitude)
         // Send SMS
 
 		recipients := []string{"+1234567890", "+919480933652","+917204064603","+916361236798","+919632371214"}
